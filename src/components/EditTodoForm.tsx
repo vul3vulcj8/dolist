@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 
-export const EditTodoForm = ({ editTodo, task }) => {
+interface EditTodoFormProps {
+  editTodo: (value: string, id: string) => void;
+  task: { task: string; id: string };
+}
+
+export const EditTodoForm: React.FC<EditTodoFormProps> = ({
+  editTodo,
+  task,
+}) => {
   const [value, setValue] = useState(task.task);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     editTodo(value, task.id);
   };
+
   return (
     <form onSubmit={handleSubmit} className="TodoForm">
       <input

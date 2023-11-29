@@ -1,9 +1,24 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-export const Todo = ({ task, deleteTodo, editTodo, toggleComplete }) => {
+interface TodoProps {
+  task: {
+    id: number;
+    task: string;
+    completed: boolean;
+  };
+  deleteTodo: (id: number) => void;
+  editTodo: (id: number) => void;
+  toggleComplete: (id: number) => void;
+}
+
+export const Todo: React.FC<TodoProps> = ({
+  task,
+  deleteTodo,
+  editTodo,
+  toggleComplete,
+}) => {
   return (
     <div className="Todo">
       <p

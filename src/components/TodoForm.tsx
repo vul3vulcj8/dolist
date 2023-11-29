@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
 
-export const TodoForm = ({ addTodo }) => {
-  const [value, setValue] = useState("");
+interface TodoFormProps {
+  addTodo: (text: string) => void;
+}
 
-  const handleSubmit = (e) => {
+export const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
+  const [value, setValue] = useState<string>("");
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (value) {
       addTodo(value);
-
       setValue("");
     }
   };
+
   return (
     <form onSubmit={handleSubmit} className="TodoForm">
       <input

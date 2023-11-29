@@ -4,19 +4,27 @@ import { TodoForm } from "./TodoForm";
 import { v4 as uuidv4 } from "uuid";
 import { EditTodoForm } from "./EditTodoForm";
 
-export const TodoWrapper = () => {
-  const [todos, setTodos] = useState([]);
+interface TodoItem {
+  id: string;
+  task: string;
+  completed: boolean;
+  isEditing: boolean;
+}
 
-  const addTodo = (todo) => {
+export const TodoWrapper: React.FC = () => {
+  const [todos, setTodos] = useState<TodoItem[]>([]);
+
+  const addTodo = (todo: string) => {
     setTodos([
       ...todos,
       { id: uuidv4(), task: todo, completed: false, isEditing: false },
     ]);
   };
 
-  const deleteTodo = (id) => setTodos(todos.filter((todo) => todo.id !== id));
+  const deleteTodo = (id: string) =>
+    setTodos(todos.filter((todo) => todo.id !== id));
 
-  const toggleComplete = (id) => {
+  const toggleComplete = (id: string) => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -24,7 +32,7 @@ export const TodoWrapper = () => {
     );
   };
 
-  const editTodo = (id) => {
+  const editTodo = (id: string) => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo
@@ -32,7 +40,7 @@ export const TodoWrapper = () => {
     );
   };
 
-  const editTask = (task, id) => {
+  const editTask = (task: string, id: string) => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, task, isEditing: !todo.isEditing } : todo
@@ -47,7 +55,7 @@ export const TodoWrapper = () => {
 
       {todos.map((todo) =>
         todo.isEditing ? (
-          <EditTodoForm editTodo={editTask} task={todo} />
+          <EditTodoForm key={todo.id} editTodo={editTask} task={todo} />
         ) : (
           <Todo
             key={todo.id}

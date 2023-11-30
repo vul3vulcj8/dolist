@@ -4,13 +4,13 @@ import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 interface TodoProps {
   task: {
-    id: number;
+    id: string;
     task: string;
     completed: boolean;
   };
-  deleteTodo: (id: number) => void;
-  editTodo: (id: number) => void;
-  toggleComplete: (id: number) => void;
+  deleteTodo: (id: string) => void;
+  editTodo: (id: string) => void;
+  toggleComplete: (id: string) => void;
 }
 
 export const Todo: React.FC<TodoProps> = ({
